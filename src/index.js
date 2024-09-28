@@ -28,17 +28,19 @@ app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'dashboard.html')); // Servir el archivo HTML del dashboard
 });
 
+// Ruta para servir el archivo HTML principal (index)
+app.get('/index', (req, res) => {
+    console.log('Solicitud GET en /. Mostrando la página principal.');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // Ruta para servir el login
 app.get('/login', (req, res) => {
     console.log('Solicitud GET en /login. Mostrando la página de login.');
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
-// Ruta para servir el archivo HTML principal (index)
-app.get('/', (req, res) => {
-    console.log('Solicitud GET en /. Mostrando la página principal.');
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+
 
 // Ruta para manejar 404 (página no encontrada) para otras rutas
 app.use((req, res, next) => {
