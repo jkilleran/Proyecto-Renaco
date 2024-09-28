@@ -1,16 +1,17 @@
 {
   "name": "proyecto-renaco",
   "version": "1.0.0",
+  "description": "Proyecto Renaco - Plataforma de gestión de pagos a suplidores y auditoría de métodos de pago.",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
+    "build": "npm install && npm run start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["suplidores", "auditoria", "pagos", "gestión"],
+  "author": "Tu Nombre",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
