@@ -34,13 +34,19 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
-// Ruta para servir el archivo HTML principal
+// Ruta para servir el archivo HTML principal (index)
 app.get('/', (req, res) => {
     console.log('Solicitud GET en /. Mostrando la página principal.');
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Puerto dinámico para hosting (Render, Heroku, etc.)
+// Ruta para manejar 404 (página no encontrada) para otras rutas
+app.use((req, res, next) => {
+    console.log(`Ruta no encontrada: ${req.originalUrl}`);
+    res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+});
+
+// Puerto dinámico para hosting (Render, Heroku, Vercel, etc.)
 const PORT = process.env.PORT || 3000;
 console.log(`Servidor escuchando en el puerto: ${PORT}`);
 
