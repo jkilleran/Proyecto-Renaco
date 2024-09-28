@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="styles/register.css">
+</head>
+<body>
+    <div class="register-container">
+        <h1>Registro de Usuario</h1>
+        <form id="registerForm">
+            <input type="text" id="username" name="username" placeholder="Nombre de usuario" required>
+            <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
+            <input type="password" id="password" name="password" placeholder="Contraseña" required>
+            <select id="userType" name="user_type" required>
+                <option value="" disabled selected>Selecciona tu tipo de usuario</option>
+                <option value="Cliente">Cliente</option>
+                <option value="Suplidor">Suplidor</option>
+                <option value="Administrador">Administrador</option>
+            </select>
+            <button type="submit">Registrarse</button>
+        </form>
+        <div id="error-message"></div>
+        <button class="btn-back" onclick="window.location.href='/'">Volver a Inicio</button>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const userType = document.getElementById('userType').value;
+            const errorMessage = document.getElementById('error-message');
+
+            if (!userType) {
+                errorMessage.textContent = 'Por favor, selecciona un tipo de usuario.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/users/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, email, password, user_type: userType })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    // Redirigir al login después del registro
+                    window.location.href = '/login';
+                } else {
+                    errorMessage.textContent = data.error || 'Error al registrar el usuario.';
+                    console.error('Error en el registro:', data.error);
+                }
+            } catch (error) {
+                errorMessage.textContent = 'Error en la solicitud. Inténtalo de nuevo.';
+                console.error('Error en la solicitud:', error);
+            }
+        });
+    </script>
+</body>
+</html>

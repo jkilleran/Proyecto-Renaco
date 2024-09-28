@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagar a Suplidores</title>
+  <link rel="stylesheet" href="styles/payment.css"> <!-- Enlaza el archivo de estilos mejorado -->
+</head>
+<body>
+
+  <!-- Header / Navegación -->
+  <header class="header">
+    <h1>Pagar a Suplidores</h1>
+    <nav>
+      <a href="/" class="nav-link">Inicio</a>
+      <a href="/dashboard" class="nav-link">Volver al Dashboard</a> <!-- Botón de volver al dashboard -->
+    </nav>
+  </header>
+
+  <!-- Formulario para realizar un pago -->
+  <section class="pay-supplier">
+    <h2>Realizar un Pago</h2>
+    <form id="paySupplierForm" class="form-container">
+      <div class="form-group">
+        <label for="payAmount">Monto:</label>
+        <input type="number" id="payAmount" class="form-control" placeholder="Ingrese el monto" required>
+      </div>
+
+      <div class="form-group">
+        <label for="supplierSelect">Seleccione el Suplidor:</label>
+        <select id="supplierSelect" class="form-control" required>
+          <!-- Los proveedores se cargarán dinámicamente -->
+        </select>
+      </div>
+
+      <input type="hidden" id="userId" value="1"> <!-- Simula que un usuario está logueado -->
+
+      <button type="submit" class="btn-primary">Pagar</button>
+    </form>
+  </section>
+
+  <!-- Mostrar lista de pagos -->
+  <section class="payments-list">
+    <h2>Historial de Pagos</h2>
+    <ul id="paymentsList" class="payment-history">
+      <!-- La lista de pagos se cargará dinámicamente -->
+    </ul>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 Pagos a Suplidores</p>
+  </footer>
+
+  <!-- Scripts para manejar los pagos -->
+  <script>
+    // Cargar la lista de proveedores
+    async function loadSuppliers() {
+      try {
+        const response = await fetch('/api/suppliers');
+        const suppliers = await response.json();
+
+        const supplierSelect = document.getElementById('supplierSelect');
+        supplierSelect.innerHTML = ''; // Limpiar el select antes de cargar proveedores
+
+        suppliers.forEach(supplier => {
+          const option = document.createElement('option');
+          option.value = supplier.id;
+          option.textContent = supplier.name;
+          supplierSelect.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Error al cargar proveedores:', error);
+      }
+    }
+
+    // Función para realizar un pago
+    document.getElementById('paySupplierForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const amount = document.getElementById('payAmount').value;
+      const supplierId = document.getElementById('supplierSelect').value;
+      const userId = document.getElementById('userId').value;
+
+      try {
+        const response = await fetch('/api/payments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount, supplierId, userId })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          alert('Pago registrado correctamente');
+          loadPayments();  // Actualizar la lista de pagos
+        } else {
+          console.error('Error al registrar el pago:', data.error);
+        }
+      } catch (error) {
+        console.error('Error al registrar el pago:', error);
+      }
+    });
+
+    // Cargar la lista de pagos
+    async function loadPayments() {
+      try {
+        const response = await fetch('/api/payments');
+        const payments = await response.json();
+
+        const paymentsList = document.getElementById('paymentsList');
+        paymentsList.innerHTML = ''; // Limpiar la lista
+
+        payments.forEach(payment => {
+          const listItem = document.createElement('li');
+          listItem.textContent = `Proveedor: ${payment.supplierId}, Monto: ${payment.amount}, Estado: ${payment.status}`;
+          paymentsList.appendChild(listItem);
+        });
+      } catch (error) {
+        console.error('Error al cargar pagos:', error);
+      }
+    }
+
+    // Cargar proveedores y pagos al cargar la página
+    window.onload = function () {
+      loadSuppliers();
+      loadPayments();
+    };
+  </script>
+
+</body>
+</html>

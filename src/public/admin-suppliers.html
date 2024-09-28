@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Suplidores</title>
+    <link rel="stylesheet" href="styles/admin-suppliers.css"> <!-- Enlaza tu archivo CSS -->
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Administrar Suplidores</h1>
+            <a href="/dashboard" class="back-button">Volver al Dashboard</a>
+        </header>
+
+        <!-- Formulario para agregar suplidor -->
+        <section class="add-supplier">
+            <h2>Agregar Suplidor</h2>
+            <form id="addSupplierForm">
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" placeholder="Nombre" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="code">Código</label>
+                    <input type="text" id="code" placeholder="Código" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="address">Dirección</label>
+                    <input type="text" id="address" placeholder="Dirección" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    <input type="text" id="phone" placeholder="Teléfono" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Email" autocomplete="off">
+                </div>
+                <input type="hidden" id="supplierId"> <!-- Campo oculto para el ID del suplidor (en caso de edición) -->
+                <button type="submit" id="submitBtn">Agregar</button>
+            </form>
+        </section>
+
+        <!-- Formulario para editar suplidor -->
+        <section class="edit-supplier" style="display: none;">
+            <h2>Editar Suplidor</h2>
+            <form id="editSupplierForm">
+                <input type="hidden" id="editSupplierId">
+                <div class="form-group">
+                    <label for="editName">Nombre</label>
+                    <input type="text" id="editName" placeholder="Nombre" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="editCode">Código</label>
+                    <input type="text" id="editCode" placeholder="Código" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="editAddress">Dirección</label>
+                    <input type="text" id="editAddress" placeholder="Dirección" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="editPhone">Teléfono</label>
+                    <input type="text" id="editPhone" placeholder="Teléfono" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email</label>
+                    <input type="email" id="editEmail" placeholder="Email" autocomplete="off">
+                </div>
+                <button type="submit">Guardar Cambios</button>
+                <button type="button" id="cancelEditBtn" onclick="cancelEdit()">Cancelar Edición</button>
+            </form>
+        </section>
+
+        <!-- Lista de suplidores -->
+        <section class="supplier-list">
+            <h2>Lista de Suplidores</h2>
+            <table id="suppliersTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Código</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Usuarios Conectados</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los proveedores se cargarán aquí mediante JavaScript -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script src="scripts/admin-suppliers.js"></script> <!-- Enlaza tu archivo JS -->
+</body>
+</html>

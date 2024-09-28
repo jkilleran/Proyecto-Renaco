@@ -1,0 +1,100 @@
+/* Estilos de la página de inicio de sesión */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #014260; /* Color de fondo oscuro */
+    color: white; /* Texto blanco */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Altura de la ventana completa */
+}
+
+.login-container {
+    background-color: #fff; /* Fondo blanco */
+    color: #014260; /* Texto oscuro */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    width: 100%;
+    max-width: 400px; /* Tamaño máximo del formulario */
+    text-align: center; /* Centrar el contenido */
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column; /* Elementos en columna */
+}
+
+label, input, button {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px; /* Bordes redondeados */
+    width: 100%; /* Ocupa el 100% del contenedor */
+}
+
+button {
+    background-color: #014260; /* Color del botón */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Efecto de transición */
+}
+
+button:hover {
+    background-color: #01334d; /* Color más oscuro en hover */
+}
+
+#error-message {
+    color: red;
+    font-size: 14px; /* Tamaño de fuente pequeño para mensajes de error */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 20px;
+        max-width: 100%; /* Asegura que en pantallas pequeñas se ajuste */
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+    
+    input, button {
+        font-size: 14px; /* Tamaños de fuente ajustados para móviles */
+    }
+}
+/* Botón de volver */
+.btn-back {
+    background-color: #fff; /* Fondo blanco */
+    color: #014260; /* Texto oscuro */
+    padding: 10px 20px;
+    border: 2px solid #014260; /* Borde oscuro */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    max-width: 200px; /* Tamaño máximo */
+    margin: 20px auto; /* Centrado del botón */
+}
+
+.btn-back:hover {
+    background-color: #f0f0f0; /* Fondo gris claro al hacer hover */
+}

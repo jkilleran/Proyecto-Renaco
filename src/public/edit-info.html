@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Información</title>
+    <link rel="stylesheet" href="styles/edit-info.css"> <!-- Asegúrate de tener los estilos adecuados en tu archivo CSS -->
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Editar Mi Información</h1>
+            <a href="/dashboard" class="back-button">Volver al Dashboard</a>
+        </header>
+
+        <section class="edit-info-section">
+            <form id="editInfoForm" class="form">
+                <div class="form-group">
+                    <label for="name">Nombre del Suplidor:</label>
+                    <input type="text" id="name" required autocomplete="off" placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required autocomplete="off" placeholder="Correo electrónico">
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        document.getElementById('editInfoForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            try {
+                const response = await fetch('/api/suppliers/edit-info', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email })
+                });
+
+                if (response.ok) {
+                    alert('Información actualizada correctamente');
+                    document.getElementById('editInfoForm').reset(); // Limpiar el formulario tras el éxito
+                } else {
+                    alert('Error al actualizar la información');
+                }
+            } catch (error) {
+                console.error('Error al actualizar la información:', error);
+                alert('Hubo un problema al procesar la solicitud. Por favor, intenta nuevamente.');
+            }
+        });
+    </script>
+</body>
+</html>

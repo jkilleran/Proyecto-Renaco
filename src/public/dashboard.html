@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Encabezado del dashboard con el tipo de usuario logueado -->
+        <header class="dashboard-header">
+            <h2 id="dashboard-title">Bienvenido al Dashboard</h2>
+            <p id="user-type-indicator"></p> <!-- Aquí se mostrará el tipo de usuario -->
+            <div class="nav-buttons">
+                <button class="btn-back" onclick="window.location.href='/'">Volver a Inicio</button>
+            </div>
+        </header>
+
+        <!-- Opciones según el tipo de usuario -->
+        <div id="dashboard-content" class="dashboard-content"></div>
+
+        <!-- Información adicional o resumen -->
+        <section class="user-summary">
+            <h3>Resumen de actividad</h3>
+            <p>Última actividad registrada: Hace 2 días</p>
+            <p>Tareas pendientes: <span id="pending-tasks">3</span></p>
+        </section>
+    </div>
+
+    <script>
+        // Verificar si el token y el tipo de usuario están en localStorage
+        const token = localStorage.getItem('token');
+        const userType = localStorage.getItem('user_type'); // Recuperar el tipo de usuario
+
+        if (!token) {
+            console.error('No hay token almacenado. Redirigiendo al login...');
+            window.location.href = '/login';
+        } else {
+            console.log('Token recuperado de localStorage:', token);
+            console.log('Tipo de usuario:', userType);
+        }
+
+        // Mostrar el tipo de usuario en el indicador
+        const userTypeIndicator = document.getElementById('user-type-indicator');
+        userTypeIndicator.textContent = `Tipo de usuario: ${userType}`;
+
+        // Mostrar las opciones según el tipo de usuario
+        const dashboardContent = document.getElementById('dashboard-content');
+        const dashboardTitle = document.getElementById('dashboard-title');
+
+        if (userType === 'Cliente') {
+            dashboardTitle.textContent = 'Bienvenido al Dashboard, Cliente';
+            dashboardContent.innerHTML = `
+                <div class="card-container">
+                    <div class="card">
+                        <h3>Agregar Suplidor</h3>
+                        <p>Administra tus suplidores para realizar pagos fácilmente.</p>
+                        <a href="admin-suppliers.html" class="btn-action">Agregar Suplidor</a>
+                    </div>
+                    <div class="card">
+                        <h3>Pagar a Suplidor</h3>
+                        <p>Realiza pagos seguros y rápidos a tus suplidores registrados.</p>
+                        <a href="pay-suppliers.html" class="btn-action">Pagar a Suplidor</a>
+                    </div>
+                </div>
+            `;
+        } else if (userType === 'Suplidor') {
+            dashboardTitle.textContent = 'Bienvenido al Dashboard, Suplidor';
+            dashboardContent.innerHTML = `
+                <div class="card-container">
+                    <div class="card">
+                        <h3>Facturación</h3>
+                        <p>Gestiona y verifica tus facturas fácilmente.</p>
+                        <a href="billing.html" class="btn-action">Ver Facturación</a>
+                    </div>
+                    <div class="card">
+                        <h3>Mercancía en Almacén</h3>
+                        <p>Administra y revisa tu inventario disponible en el almacén.</p>
+                        <a href="inventory.html" class="btn-action">Ver Inventario</a>
+                    </div>
+                    <div class="card">
+                        <h3>Editar Información</h3>
+                        <p>Actualiza tus datos de contacto y otros detalles.</p>
+                        <a href="edit-info.html" class="btn-action">Editar mi Información</a>
+                    </div>
+                </div>
+            `;
+        } else {
+            dashboardContent.innerHTML = '<p class="error-message">Error: Tipo de usuario no válido. Contacte al administrador.</p>';
+        }
+
+        // Verificar acceso al dashboard (sin autenticación por ahora)
+        async function verifyAccess() {
+            try {
+                const response = await fetch('/dashboard', {
+                    headers: {
+                        'Authorization': token // El token ya incluye el prefijo "Bearer"
+                    }
+                });
+
+                if (!response.ok) {
+                    console.error('Acceso denegado:', await response.text());
+                    window.location.href = '/login'; // Redirigir al login si el acceso fue denegado
+                }
+            } catch (error) {
+                console.error('Error al verificar el acceso al dashboard:', error);
+                window.location.href = '/login';
+            }
+        }
+
+        verifyAccess();
+    </script>
+</body>
+</html>
