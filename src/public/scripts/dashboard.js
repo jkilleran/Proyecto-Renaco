@@ -2,8 +2,8 @@ window.onload = async function() {
     const token = localStorage.getItem('token');
 
     if (!token) {
-        console.error('No hay token en localStorage. Redirigiendo al login...');
-        window.location.href = '/login'; // Si no hay token, redirigir al login
+        //console.error('No hay token en localStorage. Redirigiendo al login...');
+        //window.location.href = '/login'; // Si no hay token, redirigir al login
         return;
     }
 

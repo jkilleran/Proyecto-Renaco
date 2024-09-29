@@ -5,6 +5,7 @@ body {
   padding: 0;
   background-color: #014260; /* Fondo oscuro */
   color: #fff; /* Texto blanco */
+  height: 100%;
 }
 
 .container {
@@ -34,7 +35,7 @@ body {
 }
 
 .logo-img {
-  width: 50px; /* Ajuste para agrandar el logo */
+  width: 50px;
   margin-right: 15px;
   margin-left: 15px;
 }
@@ -43,7 +44,7 @@ body {
   font-size: 24px;
   font-weight: 600;
   margin: 0;
-  color: #014260; /* Color oscuro para el texto del logo */
+  color: #014260;
 }
 
 .nav-links {
@@ -54,7 +55,7 @@ body {
 }
 
 .nav-links a {
-  color: #014260; /* Texto oscuro */
+  color: #014260;
   text-decoration: none;
   font-size: 16px;
   padding: 10px 20px;
@@ -63,33 +64,58 @@ body {
 }
 
 .nav-links a:hover {
-  border: 2px solid #014260; /* Borde oscuro al hacer hover */
+  border: 2px solid #014260;
   border-radius: 5px;
+}
+
+/* Carrusel de Imágenes */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Ocupa todo el alto de la pantalla */
+  overflow: hidden;
+}
+
+.carousel-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250vh;
+  height: 80vh;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+.carousel-image.active {
+  display: block;
 }
 
 /* Main Content */
 .main-content {
   text-align: center;
-  padding: 100px 20px; /* Ajustar padding superior para evitar que el contenido quede bajo el header */
-  background-color: #014260; /* Fondo oscuro */
+  padding: 100px 20px;
+  background-color: #014260;
+  position: relative;
+  z-index: 1;
 }
 
 .intro h2 {
   font-size: 36px;
-  color: #fff; /* Texto blanco */
+  color: #fff;
   margin-bottom: 20px;
 }
 
 .intro p {
   font-size: 18px;
-  color: #ccc; /* Texto gris claro */
+  color: #ccc;
   line-height: 1.6;
   margin-bottom: 20px;
 }
 
 .btn-primary {
-  background-color: #fff; /* Botón blanco */
-  color: #014260; /* Texto oscuro */
+  background-color: #fff;
+  color: #014260;
   padding: 12px 30px;
   text-decoration: none;
   font-size: 18px;
@@ -98,70 +124,96 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #e0e0e0; /* Fondo gris claro al hacer hover */
+  background-color: #e0e0e0;
 }
 
-/* Hero Image */
-.hero-image {
-  margin-top: 40px;
-}
-
-.hero-image img {
-  width: 100%;
-  height: auto;
-  max-height: 500px;
-  object-fit: cover;
+/* Sección de Beneficios */
+.benefits {
+  background-color: #016699;
+  padding: 40px;
   border-radius: 10px;
+  margin-top: 40px;
+  text-align: left;
+  color: #fff;
+}
+
+.benefits h3 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.benefits ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.benefits li {
+  font-size: 18px;
+  line-height: 1.8;
+  padding-left: 15px;
+  position: relative;
+}
+
+.benefits li:before {
+  content: "✔"; /* Icono de verificación */
+  color: #28a745;
+  position: absolute;
+  left: 0;
 }
 
 /* Footer */
 .footer {
-  background-color: #fff; /* Fondo blanco */
-  color: #014260; /* Texto oscuro */
+  background-color: #fff;
+  color: #014260;
   padding: 20px 0;
   text-align: center;
-  width: 100%; /* Ancho completo */
-  position: fixed; /* Para que siempre esté visible en la parte inferior */
+  width: 100%;
+  position: fixed;
   bottom: 0;
   left: 0;
-  z-index: 1000; /* Asegurar que esté sobre otros elementos */
+  z-index: 1000;
 }
 
 .footer .social-links a {
-  color: #014260; /* Enlaces oscuros */
+  color: #014260;
   margin: 0 10px;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .footer .social-links a:hover {
-  color: #666; /* Cambiar a gris medio en hover */
+  color: #666;
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
   .header, .main-content, .footer {
-      padding: 20px;
+    padding: 20px;
   }
 
   .logo-img {
-      width: 80px; /* Tamaño ajustado para dispositivos móviles */
+    width: 80px;
   }
 
   .logo h1 {
-      font-size: 20px;
+    font-size: 20px;
   }
 
   .nav-links {
-      flex-direction: column;
-      gap: 10px;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .intro h2 {
-      font-size: 28px;
+    font-size: 28px;
   }
 
   .intro p {
-      font-size: 16px;
+    font-size: 16px;
+  }
+
+  .benefits {
+    padding: 20px;
+    margin-top: 20px;
   }
 }
