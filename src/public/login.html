@@ -18,6 +18,14 @@
                 <label for="password">Contraseña:</label>
                 <input type="password" id="password" required autocomplete="off">
             </div>
+            <div>
+                <select id="userType" name="user_type" required>
+                    <option value="" disabled selected>Selecciona tu tipo de usuario</option>
+                    <option value="Cliente">Cliente</option>
+                    <option value="Suplidor">Suplidor</option>
+                    <option value="Administrador">Administrador</option>
+                </select>
+            </div>
             <button type="submit">Iniciar Sesión</button>
             <p id="error-message" style="color: red;"></p>
         </form>

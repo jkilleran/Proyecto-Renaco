@@ -8,11 +8,7 @@ body {
   height: 100%;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
+
 
 /* Header */
 .header {
@@ -71,30 +67,62 @@ body {
 /* Carrusel de Imágenes */
 .carousel {
   position: relative;
-  width: 100%;
-  height: 100vh; /* Ocupa todo el alto de la pantalla */
+  width: 100vw; /* Ocupa todo el ancho de la pantalla */
+  height: 75vh; /* Ajusta la altura al 75% del alto de la pantalla */
   overflow: hidden;
 }
 
 .carousel-image {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 250vh;
-  height: 80vh;
-  object-fit: cover;
-  transform: translate(-50%, -50%);
-  display: none;
+  top: 0;
+  left: 0;
+  padding-top: 8%;
+  width: 100vw; /* Ancho completo de la pantalla */
+  height: 100%; /* Ocupa todo el alto del carrusel */
+  object-fit: cover; /* Hace que la imagen se ajuste bien al contenedor sin distorsionarse */
+  opacity: 0;
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* Transición suave */
 }
 
 .carousel-image.active {
-  display: block;
+  opacity: 1;
+  transform: translateX(0); /* Imagen activa visible */
 }
+
+.carousel-image.prev, .carousel-image.next {
+  opacity: 0;
+}
+
+/* Indicadores de control (opcional) */
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.carousel-indicators button {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-indicators button.active {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+
 
 /* Main Content */
 .main-content {
   text-align: center;
-  padding: 100px 20px;
+  padding: 0% 10% 10% 10%;
   background-color: #014260;
   position: relative;
   z-index: 1;
@@ -165,13 +193,21 @@ body {
 .footer {
   background-color: #fff;
   color: #014260;
-  padding: 20px 0;
+  padding: 10px 0; /* Reducido el padding */
   text-align: center;
   width: 100%;
   position: fixed;
   bottom: 0;
   left: 0;
   z-index: 1000;
+  opacity: 0; /* Inicialmente invisible */
+  transform: translateY(100%); /* Empujado fuera de la vista hacia abajo */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Animación suave para aparecer */
+}
+
+.footer.show {
+  opacity: 1; /* Mostrar el footer */
+  transform: translateY(0); /* Mover el footer a su posición normal */
 }
 
 .footer .social-links a {
@@ -186,13 +222,269 @@ body {
 }
 
 /* Responsive Styles */
+@media (max-width: 1024px) {
+  .main-content {
+    padding: 5% 8%;
+  }
+
+  .benefits h3 {
+    font-size: 24px;
+  }
+
+  .benefits li {
+    font-size: 16px;
+  }
+
+  .intro h2 {
+    font-size: 32px;
+  }
+
+  .intro p {
+    font-size: 16px;
+  }
+
+  .btn-primary {
+    padding: 10px 25px;
+    font-size: 16px;
+  }
+}
+
 @media (max-width: 768px) {
-  .header, .main-content, .footer {
-    padding: 20px;
+  .header {
+    flex-direction: column;
+    padding: 10px;
   }
 
   .logo-img {
-    width: 80px;
+    width: 40px;
+    margin-right: 10px;
+    margin-left: 0;
+  }
+
+  .logo h1 {
+    font-size: 20px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+    margin-right: 0;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .carousel {
+    height: 50vh; /* Ajustar altura del carrusel en pantallas más pequeñas */
+  }
+
+  .carousel-image {
+    height: 50vh; /* Mantener la relación de aspecto del carrusel en dispositivos móviles */
+  }
+
+  .main-content {
+    padding: 5% 5%;
+  }
+
+  .intro h2 {
+    font-size: 28px;
+  }
+
+  .intro p {
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+
+  .benefits {
+    padding: 20px;
+  }
+
+  .benefits h3 {
+    font-size: 22px;
+  }
+
+  .benefits li {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-img {
+    width: 30px;
+  }
+
+  .logo h1 {
+    font-size: 18px;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .carousel {
+    height: 40vh; /* Aún más pequeño para pantallas móviles pequeñas */
+  }
+
+  .carousel-image {
+    height: 40vh; /* Mantener el ajuste del carrusel */
+  }
+
+  .main-content {
+    padding: 5% 3%;
+  }
+
+  .intro h2 {
+    font-size: 24px;
+  }
+
+  .intro p {
+    font-size: 12px;
+  }
+
+  .btn-primary {
+    padding: 6px 16px;
+    font-size: 12px;
+  }
+
+  .benefits {
+    padding: 10px;
+  }
+
+  .benefits h3 {
+    font-size: 20px;
+  }
+
+  .benefits li {
+    font-size: 12px;
+  }
+}
+
+/* Header */
+.header {
+  background-color: #fff;
+  color: #014260;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: padding 0.3s ease; /* Transición suave en el tamaño del header */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  width: 50px;
+  margin-right: 15px;
+}
+
+.logo h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  color: #014260;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: #014260;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+  border: 2px solid #014260;
+  border-radius: 5px;
+}
+
+/* Footer */
+.footer {
+  background-color: #fff;
+  color: #014260;
+  padding: 10px 0;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.footer.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.footer .social-links a {
+  color: #014260;
+  margin: 0 10px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer .social-links a:hover {
+  color: #666;
+}
+
+/* Media Queries for Responsive Design */
+
+/* Pantallas de hasta 1024px */
+@media (max-width: 1024px) {
+  .header {
+    padding: 15px 0;
+  }
+
+  .logo-img {
+    width: 45px;
+  }
+
+  .logo h1 {
+    font-size: 22px;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+/* Pantallas de hasta 768px (Tablet y móviles grandes) */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+  }
+
+  .logo-img {
+    width: 40px;
+    margin-right: 0;
+    margin-bottom: 10px;
   }
 
   .logo h1 {
@@ -204,16 +496,50 @@ body {
     gap: 10px;
   }
 
-  .intro h2 {
-    font-size: 28px;
+  .nav-links a {
+    font-size: 14px;
+    padding: 8px 12px;
   }
 
-  .intro p {
-    font-size: 16px;
+  .footer {
+    padding: 8px 0; /* Reducir el padding en el footer */
   }
 
-  .benefits {
-    padding: 20px;
-    margin-top: 20px;
+  .footer .social-links a {
+    font-size: 14px;
+    margin: 0 8px;
+  }
+}
+
+/* Pantallas de hasta 480px (Móviles pequeños) */
+@media (max-width: 480px) {
+  .header {
+    padding: 8px 0;
+  }
+
+  .logo-img {
+    width: 35px;
+  }
+
+  .logo h1 {
+    font-size: 18px;
+  }
+
+  .nav-links {
+    gap: 8px;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .footer {
+    padding: 6px 0; /* Aún más reducido en móviles pequeños */
+  }
+
+  .footer .social-links a {
+    font-size: 12px;
+    margin: 0 5px;
   }
 }

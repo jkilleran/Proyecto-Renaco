@@ -53,7 +53,7 @@
         </main>
 
         <!-- Pie de página con enlaces a redes sociales -->
-        <footer class="footer">
+        <footer class="footer hidden">
             <p>Síguenos en nuestras redes sociales:</p>
             <div class="social-links">
                 <a href="https://facebook.com" target="_blank">Facebook</a> |
@@ -64,5 +64,23 @@
     </div>
 
     <script src="scripts/carousel.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const footer = document.querySelector('.footer');
+    
+            // Función que detecta si el usuario ha llegado al final de la página
+            function checkIfAtBottom() {
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                    footer.classList.add('show'); // Mostrar el footer con la animación
+                } else {
+                    footer.classList.remove('show'); // Ocultar el footer si no está en el final
+                }
+            }
+    
+            // Evento que escucha cuando el usuario hace scroll
+            window.addEventListener('scroll', checkIfAtBottom);
+        });
+    </script>
+    
 </body>
 </html>
