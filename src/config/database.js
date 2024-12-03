@@ -1,8 +1,8 @@
 const { Sequelize } = require('sequelize');
 
 // Configuración de la base de datos para Render
-const sequelize = new Sequelize('renaco_db', 'renaco_db_user', 'ufakjM8gL3pcQffUVphA7KCMEe14OX1Y', {
-  host: 'dpg-crs0titds78s73dv35ug-a.oregon-postgres.render.com',
+const sequelize = new Sequelize('renaco_db_be5a', 'renaco_db_be5a_user', 'l5pVpuJky7Y6zWFw8IWn4RaXwa0092IT', {
+  host: 'dpg-ct74pnm8ii6s73a78pa0-a.oregon-postgres.render.com',
   dialect: 'postgres',
   port: 5432, // Puerto por defecto de PostgreSQL
   logging: console.log, // Habilitar logging para depurar consultas SQL si es necesario (puedes desactivarlo en producción)
